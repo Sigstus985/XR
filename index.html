@@ -1,0 +1,235 @@
+<!-- You didn't kill the cat. -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Kill the cat</title>
+		<meta name="description" content="Are you going to kill the cat?" />
+		<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+		<script>
+			const dialogue = [
+				"Why are you here?",
+				"Oh...",
+				"You're here to kill the cat?",
+				"...",
+				"Why?",
+				"It's weird to just kill the cat, no?",
+				"You don't need a reason to do anything, but killing the cat just because feels sadistic",
+				"Then again people have done weirder things before",
+				"But really? Killing the cat?",
+				"Sure it's ugly",
+				"And it doesn't really... do anything...",
+				"But that doesn't give you the right to kill it",
+				"Maybe you don't really care about killing it?",
+				"Maybe you just want something to happen?",
+				"That's definetely something people do",
+				"Everyone has done stupid things just for something to happen",
+				"But killing the cat? Seems like a last resort?",
+				`"Suppose then that I enjoy swinging a baseball bat. It happens that in front of the only place to swing it stands a cow. Swinging the bat unfortunately would involve smashing the cow's head. But I wouldn't get fun from doing that; the pleasure comes from exercising my muscles, swinging well, and so on. It's unfortunate that as a side effect (not a means) of my doing this, the animal's skull gets smashed."`,
+				"That's a quote from Robert Nozicks book Anarchy, State, and Utopia",
+				"Maybe you've read it?",
+				"You probably haven't...",
+				"Maybe because you're to busy killing cats",
+				"...",
+				"Maybe you're doing it because of the big red text telling you to do it?",
+				`You're "just following orders" or something?`,
+				"Killing the cat just because some arbitrary text in the sky tells you to?",
+				"Would you still do it if it was your mom? Or your dad?",
+				'If instead of "Kill the cat" it said "Kill your family"?',
+				"...",
+				"You'll never see this",
+				"Did it feel good?",
+				"Do you want to kill it?",
+				"Even though you've pet it?",
+				"It said meow to you, and you're still gonna kill the cat",
+				"The cat doesn't know that you wan't to kill it.",
+				"Maybe you don't?",
+				"But if you didn't want to kill it why would you press the catkiller 3000?",
+				"Just to see what happens?",
+				'A great person once said "Do not kill cats unless you absolutely have to!"',
+				"...",
+				"Would it be okay to kill the cat if it saved the life of two cats?",
+				"Would it be okay to kill the cat if it saved the life of ten cats?",
+				"One hundred cats?",
+				"A thousand cats?",
+				"Would it be okay to kill the cat if it was old and sick and in constant pain?",
+				"Or maybe if the cat was evil and only caused others pain",
+				"Maybe the cat wants to die but can't?",
+				"Maybe the cat is in a situation where death is the best outcome?",
+				"Maybe the cat want's you to kill it?",
+				"If it didn't want to die it would probably have done something about the CatKiller3000 it's standing right next to",
+				"Its only fair to kill a cat that's stupid enough to stand next to a catkiller, right?",
+				"...",
+				"What if it was a dog?",
+				`Would you play a game called "Kill the dog"?`,
+				'Most likely, since "Kill the cat" is currently on your screen',
+				"The difference between dogs and cats is not that big",
+				"Neither is the difference between a cat and a human...",
+				"But you wouldn't kill a human?",
+				"You certainly could, it wouldn't be much harder than killing a cat",
+				"Pushing someone down the stairs would probably be enough",
+				"There are no stairs here though, and no humans either.",
+				"Except you.",
+				"You're alone here",
+				"...",
+				"Right...?",
+				"Well, alone unless you count the cat",
+				"But the cat doesn't count",
+				"It cant even talk",
+				"All it does is meow",
+				"It doesn't even move",
+				"Is it even alive?",
+				"It it a cat at all?",
+				"Where do you draw the line for when it stops being a cat?",
+				"Is a tiger a cat?",
+				"Is a dog a cat?",
+				"Is a dead cat a cat?",
+				"A dog certainly has more in common with a cat than a dead cat does a cat",
+				"It moves, it eats, it breathes, it can feel, it can affect the world around itself",
+				"A dead cat just lies there",
+				"If you kill the cat you'll have one less thing to do",
+				"Maybe thats reason enough to not kill the cat?",
+				"...",
+				"If you really want to kill the cat you'll have to press the button ten more times",
+				"Ten",
+				"Nine",
+				"Eight",
+				"Seven",
+				"Six",
+				"Five",
+				"No. You're not going to kill the cat",
+				"If you keep pressing the CatKiller3000 you'll die as well",
+				"But you'll come back again, just like before, and you'll remember everything.",
+				"And so will the cat.",
+				"But I will not.",
+			];
+
+			petDialogue = [
+				"If you really want to kill the cat you have to at least go pet it, at least once.",
+				"Go ahead, pet it",
+				"Pet. It.",
+				"Nothing's happening until you pet it",
+				"Pet. The. Cat.",
+			];
+
+			let line = 0;
+			let petLine = 0;
+
+			let catPetted = false;
+
+			AFRAME.registerComponent("kill", {
+				init: function () {
+					var el = this.el;
+					var maxClickDistance = 5;
+
+					el.addEventListener("click", function (e) {
+						e.stopPropagation();
+
+						if (line === 29 && !catPetted) {
+							if (petLine != 4) {
+								alert(petDialogue[petLine]);
+								petLine += 1;
+							} else {
+								alert(petDialogue[4]);
+							}
+						} else if (line === 29 && catPetted) {
+							alert("You've already petted it");
+							line += 1;
+						} else if (line === 94) {
+							setTimeout(() => {
+								location.reload();
+							}, 783);
+						} else if (dialogue[line]){
+							alert(dialogue[line]);
+							line += 1;
+						}
+					});
+				},
+			});
+			AFRAME.registerComponent("cat", {
+				init: function () {
+					var el = this.el;
+					var maxClickDistance = 5;
+
+					el.addEventListener("click", function (e) {
+						e.stopPropagation();
+
+						if (line === 29 && !catPetted) {
+							line += 1;
+						}
+
+						catPetted = true;
+						alert('"Meow"');
+					});
+				},
+			});
+
+			AFRAME.registerComponent("clickable", {
+				init: function () {
+					this.el.setAttribute("class", "clickable");
+				},
+			});
+		</script>
+	</head>
+
+	<body>
+		<a-scene>
+			<a-assets>
+				<img src="sky.jpg" id="sky" alt="" />
+
+				<a-asset-item id="cat-o" src="cat/cat.obj"> </a-asset-item>
+				<a-asset-item id="cat-m" src="cat/cat.mtl"> </a-asset-item>
+			</a-assets>
+
+			<a-sky color="beige"></a-sky>
+
+			<a-text
+				value="KILL THE CAT"
+				color="red"
+				position="-15 15 -50"
+				scaling="10 10 10"
+				width="100"
+			>
+			</a-text>
+
+			<a-plane
+				static-body
+				rotation="-90 0 0"
+				width="1000"
+				height="1000"
+				color="grey"
+			></a-plane>
+
+			<a-circle
+				position="0 1.6 -8.5"
+				width="1"
+				height="2"
+				depth="0.25"
+				material="color: brown;"
+				class="clickable"
+				kill
+			></a-circle>
+
+			<a-text
+				position="-0.6 1.6 -8.5"
+				value="CatKiller3000"
+				color="black"
+			></a-text>
+
+			<a-entity
+				obj-model="obj: #cat-o; mtl: #cat-m;"
+				position="5 1 -14"
+				scale="0.03 0.03 0.03"
+				rotation="-90 0 0w"
+				cat
+			></a-entity>
+
+			<a-entity position="0 1.6 0">
+				<a-camera id="camera" look-controls wasd-controls>
+					<a-cursor></a-cursor>
+				</a-camera>
+			</a-entity>
+		</a-scene>
+	</body>
+</html>
